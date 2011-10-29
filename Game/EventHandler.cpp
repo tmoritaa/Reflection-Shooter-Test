@@ -1,3 +1,6 @@
+// TODO:
+// create recursive makefile and make #include to "Definitions.h"
+#include "../Definitions/Definitions.h"
 #include "EventHandler.h"
 
 EventHandler::EventHandler()
@@ -50,7 +53,7 @@ bool EventHandler::HandleEvent(/*pass main object*/)
 	{
 		if (event.type == SDL_QUIT)
 		{
-			return true;
+			return FAILURE;
 		}
 		else 
 		{
@@ -58,5 +61,5 @@ bool EventHandler::HandleEvent(/*pass main object*/)
 		}
 	}
 
-	return false;
+	return SUCCESS;
 }

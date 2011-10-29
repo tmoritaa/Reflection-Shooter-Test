@@ -1,15 +1,81 @@
+// TODO:
+// create recursive makefile and make #include to "Definitions.h"
+#include "../Definitions/Definitions.h"
 #include "GraphicsComponent.h"
+#include <fstream>
+
+using namespace std;
 
 GraphicsComponent::GraphicsComponent()
 {
+	screen = NULL;
+	for (int i = 0; i < SPRITEID_SIZE; i++)
+	{
+		spriteLibrary[i] = NULL;
+	}
 }
 
-bool GraphicsComponent::loadImages()
+GraphicsComponent::~GraphicsComponent()
 {
+	SDL_FreeSurface(screen);
+	screen = NULL;
 
+	for (int i = 0; i < SPRITEID_SIZE; i++)
+	{
+		if (spriteLibrary[i] != NULL) 
+		{
+			SDL_FreeSurface(spriteLibrary[i]);
+			spriteLibrary[i] = NULL;
+		}
+	}
+}
 
+bool GraphicsComponent::loadImage(string path, int index)
+{
+	SDL_Surface* loadedImage = NULL;
+	SDL_Surface* optimizedImage = NULL;
 
+	loadedImage = IMG_Load(path.c_str());
 
+	if (loadedImage == NULL)
+	{
+		return FAILURE;
+	}
+
+	optimizedImage = SDL_DisplayFormat(loadedImage);
+	SDL_FreeSurface(loadedImage);
+
+	if (optimizedImage == NULL)
+	{
+		return FAILURE;
+	}
+
+	SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB(optimizedImage->format, 0x0, 0xff, 0xff));
+
+	spriteLibrary[index] = optimizedImage;
+
+	return SUCCESS;
+}
+
+bool GraphicsComponent::loadFiles()
+{
+	ifstream spritePaths("SpritePath.ini");
+	string line;
+	int i = 0;
+
+	if (spritePaths.is_open())
+	{
+		getline(spritePaths, line);
+
+		if (loadImage(line, i) == FAILURE)
+		{
+			return FAILURE;
+		}
+
+		i++;
+	}
+
+	return SUCCESS;
 }
 
 bool GraphicsComponent::Init()
@@ -18,15 +84,15 @@ bool GraphicsComponent::Init()
 	
 	if (screen == NULL)
 	{
-		return true;
+		return FAILURE;
 	}
 
-	if (loadImages())
+	if (loadFiles() == FAILURE)
 	{
-		return true;
+		return FAILURE;
 	}
 
-	return false;
+	return SUCCESS;
 }
 
 
@@ -36,9 +102,9 @@ bool GraphicsComponent::Draw()
 
 	if (SDL_Flip(screen) == -1)
 	{
-		return true;
+		return FAILURE;
 	}
 
-	return false;
+	return SUCCESS;
 }
 

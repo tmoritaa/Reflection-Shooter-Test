@@ -1,3 +1,6 @@
+// TODO:
+// create recursive makefile and make #include to "Definitions.h"
+#include "../Definitions/Definitions.h"
 #include "Game.h"
 #include <stdio.h>
 
@@ -14,7 +17,7 @@ bool Game::IterateOneGameLoop()
 	// handle events (done by eventhandler)
 	if (pEventHandler->HandleEvent(/*pass main object*/))
 	{
-		return true;
+		return FAILURE;
 	}
 
 	// below performed by Logic Object
@@ -28,13 +31,13 @@ bool Game::IterateOneGameLoop()
 	// Draw graphics of state field
 	if (pGraphicsComponent->Draw())
 	{
-		return true;
+		return FAILURE;
 	}
 
 	// adjust frame rate
 
 
-	return false;
+	return SUCCESS;
 }
 
 void Game::Start()
@@ -46,7 +49,7 @@ void Game::Start()
 
 	printf("Game Started\n");
 
-	while (!IterateOneGameLoop());
+	while (IterateOneGameLoop() == SUCCESS);
 
 	printf("Game Ended\n");
 }

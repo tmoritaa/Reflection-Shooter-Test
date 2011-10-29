@@ -1,3 +1,6 @@
+// TODO:
+// create recursive makefile and make #include to "Definitions.h"
+#include "../Definitions/Definitions.h"
 #include "SDLWrapper.h"
 
 SDLWrapper::SDLWrapper()
@@ -10,17 +13,17 @@ bool SDLWrapper::Init()
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) == -1)
 	{
-		return true;
+		return FAILURE;
 	}
 
 	if (pGraphicsComponent->Init())
 	{
-		return true;
+		return FAILURE;
 	}
 
 	SDL_WM_SetCaption("Shooter", NULL);
 
-	return false;
+	return SUCCESS;
 }
 
 EventHandler* SDLWrapper::GetEventHandler()

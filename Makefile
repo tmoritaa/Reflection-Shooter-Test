@@ -4,8 +4,8 @@ OBJECTSMAIN = Main.o
 OBJECTSGAME = Game/GraphicsComponent.o Game/SDLWrapper.o Game/EventHandler.o Game/Game.o
 OBJECTS = ${OBJECTSMAIN} ${OBJECTSGAME}
 DEPENDS = ${OBJECTS:.o=.d} 
-INCLUDE = -I ./Game/
-LIBRARY = -lSDL
+INCLUDE = -I ./Game/ -I ./Definitions/
+LIBRARY = -lSDL -lSDL_image
 EXEC = Shooter
 
 ${EXEC} : ${OBJECTS}
