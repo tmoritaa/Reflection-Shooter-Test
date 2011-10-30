@@ -2,17 +2,20 @@
 #define _GAME_H_
 
 #include "SDLWrapper.h"
-//#include "GameLogic.h"
+#include "Logic.h"
+#include "ObjectHandler.h"
 
 class Game 
 {
 private:
-	SDLWrapper* pSDLWrapper;
-	//GameLogic* pGameLogic;
+	ObjectHandler* m_pObjectHandler;
+	SDLWrapper* m_pSDLWrapper;
+	Logic* m_pLogic;
 	bool init();
 
 public:
 	Game();
+	~Game();
 	bool IterateOneGameLoop();
 	void Start();
 

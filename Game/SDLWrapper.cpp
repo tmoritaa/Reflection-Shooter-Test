@@ -3,10 +3,16 @@
 #include "../Definitions/Definitions.h"
 #include "SDLWrapper.h"
 
-SDLWrapper::SDLWrapper()
+SDLWrapper::SDLWrapper(ObjectHandler* _pObjectHandler)
 {
-	pEventHandler = new EventHandler();
-	pGraphicsComponent = new GraphicsComponent();
+	m_pEventHandler = new EventHandler(_pObjectHandler);
+	m_pGraphicsComponent = new GraphicsComponent(_pObjectHandler);
+}
+
+SDLWrapper::~SDLWrapper()
+{
+	delete m_pEventHandler;
+	delete m_pGraphicsComponent;
 }
 
 bool SDLWrapper::Init()
@@ -16,7 +22,7 @@ bool SDLWrapper::Init()
 		return FAILURE;
 	}
 
-	if (pGraphicsComponent->Init())
+	if (m_pGraphicsComponent->Init())
 	{
 		return FAILURE;
 	}
@@ -28,12 +34,12 @@ bool SDLWrapper::Init()
 
 EventHandler* SDLWrapper::GetEventHandler()
 {
-	return pEventHandler;
+	return m_pEventHandler;
 }
 
 
 GraphicsComponent* SDLWrapper::GetGraphicsComponent()
 {
-	return pGraphicsComponent;
+	return m_pGraphicsComponent;
 }
 

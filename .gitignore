@@ -1,3 +1,5 @@
 *.o
+*.d
 *.swp
 out
+Shooter

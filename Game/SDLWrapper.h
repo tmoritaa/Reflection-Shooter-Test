@@ -4,15 +4,17 @@
 #include "SDL/SDL.h"
 #include "EventHandler.h"
 #include "GraphicsComponent.h"
+#include "Logic.h"
 
 class SDLWrapper
 {
 private:
-	EventHandler* pEventHandler;
-	GraphicsComponent* pGraphicsComponent;
+	EventHandler* m_pEventHandler;
+	GraphicsComponent* m_pGraphicsComponent;
 
 public:
-	SDLWrapper();
+	SDLWrapper(ObjectHandler* _pObjectHandler);
+	~SDLWrapper();
 	bool Init();
 	EventHandler* GetEventHandler();
 	GraphicsComponent* GetGraphicsComponent();

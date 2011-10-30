@@ -1,38 +1,26 @@
 #ifndef _GRAPHICSCOMPONENT_H_
 #define _GRAPHICSCOMPONENT_H_
 
+#include "ObjectHandler.h"
+#include "../Definitions/Definitions.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-
-#include <string>
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_BPP = 32;
-
-enum 
-{
-	SPRITEID_MAINIDLE = 0,
-	SPRITEID_MAINLEFT,
-	SPRITEID_MAINRIGHT,
-	SPRITEID_SIZE,
-};
 
 class GraphicsComponent
 {
 private:
-	SDL_Surface* screen;
-	SDL_Surface* spriteLibrary[SPRITEID_SIZE];
-	bool loadImage(std::string path, int index);
+	ObjectHandler* m_pObjectHandler;
+	SDL_Surface* m_screen;
+	SDL_Surface* m_spriteLibrary[SPRITEID_SIZE];
 	bool loadFiles();
+	bool loadImage(const char* path, int index);
+	void drawObject(Object* _object);
 
 public:
-	GraphicsComponent();
+	GraphicsComponent(ObjectHandler* _pObjectHandler);
 	~GraphicsComponent();
 	bool Init();
 	bool Draw();
-
-
 };
 
 #endif

@@ -6,13 +6,23 @@
 
 Game::Game()
 {
-	pSDLWrapper = new SDLWrapper;
+	m_pObjectHandler = new ObjectHandler();
+	m_pLogic = new Logic(m_pObjectHandler);
+	m_pSDLWrapper = new SDLWrapper(m_pObjectHandler);
+	
+}
+
+Game::~Game()
+{
+	delete m_pSDLWrapper;
+	delete m_pLogic;
+	delete m_pObjectHandler;
 }
 
 bool Game::IterateOneGameLoop()
 {
-	EventHandler* pEventHandler = pSDLWrapper->GetEventHandler();
-	GraphicsComponent* pGraphicsComponent = pSDLWrapper->GetGraphicsComponent();
+	EventHandler* pEventHandler = m_pSDLWrapper->GetEventHandler();
+	GraphicsComponent* pGraphicsComponent = m_pSDLWrapper->GetGraphicsComponent();
 
 	// handle events (done by eventhandler)
 	if (pEventHandler->HandleEvent(/*pass main object*/))
@@ -22,6 +32,7 @@ bool Game::IterateOneGameLoop()
 
 	// below performed by Logic Object
 	// calc movements
+	m_pLogic->MoveObjects();
 	// clean up objects off of screen and in active state
 	//collision detection
 	// perform action
@@ -42,7 +53,7 @@ bool Game::IterateOneGameLoop()
 
 void Game::Start()
 {
-	if (pSDLWrapper->Init())
+	if (m_pSDLWrapper->Init())
 	{
 		return;
 	}

@@ -1,64 +1,115 @@
 #include "Object.h"
 #include <cassert>
 
-Object::Object(bool _reflectable, string _path)
+Object::Object(Circle* _pC, SpriteID _spriteID)
 {
-	velX = 0;
-	velY = 0;
-	reflectable = _reflectable;
+	m_shape.c = _pC;
 
-	assert(loadSprite(_path));
+	m_shape.r = NULL;
+
+	m_spriteID = _spriteID;
+
+	m_velX = 0;
+	m_velY = 0;
+
+	assert(m_spriteID < SPRITEID_SIZE);
+	assert(m_shape.c != NULL ||  m_shape.r != NULL);
+}
+
+Object::Object(Rect* _pR, SpriteID _spriteID)
+{
+	m_shape.r = _pR;
+
+	m_shape.c = NULL;
+
+	m_spriteID = _spriteID;
+
+	m_velX = 0;
+	m_velY = 0;
+
+	assert(m_spriteID < SPRITEID_SIZE);
+	assert(m_shape.c != NULL ||  m_shape.r != NULL);
 }
 
 Object::~Object()
 {
-	SDL_FreeSurface(sprite);
+	if (NULL != m_shape.c)
+	{
+		delete m_shape.c;
+	}
+
+	if (NULL != m_shape.r)
+	{
+		delete m_shape.r;
+	}
 }
 
 void Object::SetVelX(int _velX)
 {
-	velX = _velX;
+	m_velX = _velX;
 }
 
 void Object::SetVelY(int _velY)
 {
-	velY = _velY;
+	m_velY = _velY;
 }
 
 int Object::GetVelX()
 {
-	return velX;
+	return m_velX;
 }
 
 int Object::GetVelY()
 {
-	return velY;
+	return m_velY;
 }
 
-bool loadSprite(string _path)
+int Object::GetX()
 {
-	SDL_Surface* loadedImage = NULL;	
-
-	loadedImage = IMG_Load(_path.c_str());
-
-	if (loadedImage != NULL) 
+	if (m_shape.c != NULL)
 	{
-		sprite = SDL_DisplayFormat(loadedImage);
-		SDL_FreeSurface(loadedImage);
-		
-		if (sprite != NULL) 
-		{
-			SDL_SetColorKey(sprite, SDL_SRCCOLORKEY, SDL_MapRGB(sprite->format, 0, 0xff, 0xff));
-		} 
-		else 
-		{
-			return false;
-		}
-	} 
+		return m_shape.c->x;
+	}
 	else 
 	{
-		return false;
+		return m_shape.r->x;
 	}
+}
 
-	return true;
+int Object::GetY()
+{
+	if (m_shape.c != NULL)
+	{
+		return m_shape.c->y;
+	}
+	else 
+	{
+		return m_shape.r->y;
+	}
+}
+
+void Object::Move()
+{
+	assert(m_shape.c != NULL ||  m_shape.r != NULL);
+
+	if (m_shape.c != NULL)
+	{
+		m_shape.c->x += m_velX;
+		m_shape.c->y += m_velY;
+	}
+	else 
+	{
+		m_shape.r->x += m_velX;
+		m_shape.r->y += m_velY;
+	}
+}
+
+SpriteID Object::GetSpriteID()
+{
+	return m_spriteID;;
+}
+
+void Object::SetSpriteID(SpriteID _spriteID)
+{
+	m_spriteID = _spriteID;
 }

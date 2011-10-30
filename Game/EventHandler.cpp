@@ -2,50 +2,90 @@
 // create recursive makefile and make #include to "Definitions.h"
 #include "../Definitions/Definitions.h"
 #include "EventHandler.h"
+#include "../Objects/Object.h"
 
-EventHandler::EventHandler()
+EventHandler::EventHandler(ObjectHandler* _pObjectHandler)
 {
+	m_pObjectHandler = _pObjectHandler;
 }
 
 //TODO
-void EventHandler::handleInput(SDL_Event& event/*, passed main object*/)
+void EventHandler::handleInput(SDL_Event& event)
 {
-/*
+	Object* main = m_pObjectHandler->GetMain();
+	int velX = main->GetVelX();
+	int velY = main->GetVelY();
+	SpriteID spriteID = SPRITEID_SIZE;
+
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
-			case SDLK_UP: yVel -= 1; break;
-			case SDLK_DOWN: yVel += 1; break;
-			case SDLK_LEFT: xVel -= 1; break;
-			case SDLK_RIGHT: xVel += 1; break;
-		}
-	} else if (event.type == SDL_KEYUP) {
-		switch (event.key.keysym.sym) {
-			case SDLK_UP: yVel += 1; break;
-			case SDLK_DOWN: yVel -= 1; break;
-			case SDLK_LEFT: xVel += 1; break;
-			case SDLK_RIGHT: xVel -= 1; break;
-		}
-	}
-*/
-	if (event.type == SDL_KEYDOWN) {
-		switch (event.key.keysym.sym) {
-			case SDLK_UP: printf("KEYDOWN up\n"); break;
-			case SDLK_DOWN: printf("KEYDOWN down\n"); break;
-			case SDLK_LEFT: printf("KEYDOWN left\n"); break;
-			case SDLK_RIGHT: printf("KEYDOWN right\n"); break;
+			case SDLK_UP: 
+			{
+				velY -= GENERAL_VELOCITY;
+				printf("KEYDOWN up\n"); 
+			} break;
+			
+			case SDLK_DOWN: 
+			{
+				velY += GENERAL_VELOCITY;
+				printf("KEYDOWN down\n"); 
+			} break;
+			
+			case SDLK_LEFT: 
+			{
+				velX -= GENERAL_VELOCITY;
+				spriteID = SPRITEID_MAINLEFT; 
+				printf("KEYDOWN left\n");
+			} break;
+			
+			case SDLK_RIGHT: 
+			{
+				velX += GENERAL_VELOCITY;
+				spriteID = SPRITEID_MAINRIGHT; 
+				printf("KEYDOWN right\n"); 
+			} break;
 		}
 	} 
 	else if (event.type == SDL_KEYUP) {
 		switch (event.key.keysym.sym) {
-			case SDLK_UP: printf("KEYUP up\n"); break;
-			case SDLK_DOWN: printf("KEYUP down\n"); break;
-			case SDLK_LEFT: printf("KEYUP left\n"); break;
-			case SDLK_RIGHT: printf("KEYUP right\n"); break;
+			case SDLK_UP: 
+			{
+				velY += GENERAL_VELOCITY;
+				printf("KEYUP up\n"); 
+			} break;
+
+			case SDLK_DOWN: 
+			{
+				velY -= GENERAL_VELOCITY;
+				printf("KEYUP down\n"); 
+			} break;
+			
+			case SDLK_LEFT: 
+			{
+				velX += GENERAL_VELOCITY;
+				spriteID = SPRITEID_MAINIDLE;
+				printf("KEYUP left\n"); 
+			} break;
+			
+			case SDLK_RIGHT: 
+			{
+				velX -= GENERAL_VELOCITY;
+				spriteID = SPRITEID_MAINIDLE;
+				printf("KEYUP right\n"); 
+			} break;
 		}
+	}
+
+	main->SetVelX(velX);
+	main->SetVelY(velY);
+
+	if (spriteID != SPRITEID_SIZE)
+	{
+		main->SetSpriteID(spriteID);
 	}
 }
 
-bool EventHandler::HandleEvent(/*pass main object*/)
+bool EventHandler::HandleEvent()
 {
 	SDL_Event event;
 
@@ -57,7 +97,7 @@ bool EventHandler::HandleEvent(/*pass main object*/)
 		}
 		else 
 		{
-			handleInput(event/*, pass main object*/);
+			handleInput(event);
 		}
 	}
 
