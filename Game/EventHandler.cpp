@@ -9,7 +9,6 @@ EventHandler::EventHandler(ObjectHandler* _pObjectHandler)
 	m_pObjectHandler = _pObjectHandler;
 }
 
-//TODO
 void EventHandler::handleInput(SDL_Event& event)
 {
 	Object* main = m_pObjectHandler->GetMain();

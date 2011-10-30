@@ -25,8 +25,9 @@ bool Game::IterateOneGameLoop()
 	GraphicsComponent* pGraphicsComponent = m_pSDLWrapper->GetGraphicsComponent();
 
 	// handle events (done by eventhandler)
-	if (pEventHandler->HandleEvent(/*pass main object*/))
+	if (pEventHandler->HandleEvent())
 	{
+		// quit
 		return FAILURE;
 	}
 
@@ -42,6 +43,7 @@ bool Game::IterateOneGameLoop()
 	// Draw graphics of state field
 	if (pGraphicsComponent->Draw())
 	{
+		printf("GraphicsComponent failed\n");
 		return FAILURE;
 	}
 
@@ -55,6 +57,7 @@ void Game::Start()
 {
 	if (m_pSDLWrapper->Init())
 	{
+		printf("Initialization failed\n");
 		return;
 	}
 
