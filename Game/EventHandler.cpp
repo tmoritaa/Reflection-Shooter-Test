@@ -102,3 +102,16 @@ bool EventHandler::HandleEvent()
 
 	return SUCCESS;
 }
+
+void EventHandler::StartTimer()
+{
+	timer.startTick = SDL_GetTicks();
+}
+
+void EventHandler::AdjustFrameRate()
+{
+	if (timer.startTick < (1000/FRAMERATE))
+	{
+		SDL_Delay((1000/FRAMERATE) - timer.startTick);
+	}
+}

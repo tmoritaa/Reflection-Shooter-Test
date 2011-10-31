@@ -24,6 +24,9 @@ bool Game::IterateOneGameLoop()
 	EventHandler* pEventHandler = m_pSDLWrapper->GetEventHandler();
 	GraphicsComponent* pGraphicsComponent = m_pSDLWrapper->GetGraphicsComponent();
 
+	// Get time at beginning of loop
+	pEventHandler->StartTimer();
+
 	// handle events (done by eventhandler)
 	if (pEventHandler->HandleEvent())
 	{
@@ -48,7 +51,7 @@ bool Game::IterateOneGameLoop()
 	}
 
 	// adjust frame rate
-
+	pEventHandler->AdjustFrameRate();
 
 	return SUCCESS;
 }

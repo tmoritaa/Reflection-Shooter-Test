@@ -10,9 +10,10 @@ typedef unsigned char BYTE;
 typedef unsigned int SpriteID;
 typedef unsigned int AnimationState;
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_BPP = 32;
+const unsigned int SCREEN_WIDTH = 640;
+const unsigned int SCREEN_HEIGHT = 480;
+const unsigned int SCREEN_BPP = 32;
+const unsigned int FRAMERATE = 20;
 
 const int GENERAL_VELOCITY = 1;
 

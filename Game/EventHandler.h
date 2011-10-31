@@ -5,16 +5,23 @@
 #include "ObjectHandler.h"
 #include "../Definitions/Definitions.h"
 
+struct Timer
+{
+	int startTick;
+};
+
 class EventHandler
 {
 private:
 	ObjectHandler* m_pObjectHandler;
 	void handleInput(SDL_Event& event);
+	Timer timer;
 
 public:
 	EventHandler(ObjectHandler* _pObjectHandler);
 	bool HandleEvent();
-	
+	void StartTimer();
+	void AdjustFrameRate();
 };
 
 #endif
