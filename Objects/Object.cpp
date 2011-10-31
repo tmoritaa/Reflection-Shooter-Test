@@ -1,33 +1,29 @@
 #include "Object.h"
 #include <cassert>
 
-Object::Object(Circle* _pC, SpriteID _spriteID)
+Object::Object(Circle* _pC, SpriteID** _pAnimationList, int* _pAnimationListSize)
+:	m_pAnimationList(_pAnimationList),
+	m_pAnimationListSize(_pAnimationListSize),
+	m_velX(0),
+	m_velY(0),
+	m_animationIndex(0),
+	m_animationState(ANIMATIONSTATE_IDLE)
 {
 	m_shape.c = _pC;
-
 	m_shape.r = NULL;
-
-	m_spriteID = _spriteID;
-
-	m_velX = 0;
-	m_velY = 0;
-
-	assert(m_spriteID < SPRITEID_SIZE);
 	assert(m_shape.c != NULL ||  m_shape.r != NULL);
 }
 
-Object::Object(Rect* _pR, SpriteID _spriteID)
+Object::Object(Rect* _pR, SpriteID** _pAnimationList, int* _pAnimationListSize)
+:	m_pAnimationList(_pAnimationList),
+	m_pAnimationListSize(_pAnimationListSize),
+	m_velX(0),
+	m_velY(0),
+	m_animationIndex(0),
+	m_animationState(ANIMATIONSTATE_IDLE)
 {
-	m_shape.r = _pR;
-
 	m_shape.c = NULL;
-
-	m_spriteID = _spriteID;
-
-	m_velX = 0;
-	m_velY = 0;
-
-	assert(m_spriteID < SPRITEID_SIZE);
+	m_shape.r = _pR;
 	assert(m_shape.c != NULL ||  m_shape.r != NULL);
 }
 
@@ -42,6 +38,14 @@ Object::~Object()
 	{
 		delete m_shape.r;
 	}
+
+	for (int i = 0; i < ANIMATIONSTATE_SIZE; i++)
+	{
+		free(m_pAnimationList[i]);
+	}
+
+	free(m_pAnimationList);
+	free(m_pAnimationListSize);
 }
 
 void Object::SetVelX(int _velX)
@@ -102,14 +106,24 @@ void Object::Move()
 		m_shape.r->x += m_velX;
 		m_shape.r->y += m_velY;
 	}
+	
+	m_animationIndex++;
+	if (m_pAnimationListSize[m_animationState] ==  m_animationIndex)
+	{
+		m_animationIndex = 0;
+	}
 }
 
 SpriteID Object::GetSpriteID()
 {
-	return m_spriteID;;
+	return m_pAnimationList[m_animationState][m_animationIndex];
 }
 
-void Object::SetSpriteID(SpriteID _spriteID)
+void Object::SetAnimationState(AnimationState _animationState)
 {
-	m_spriteID = _spriteID;
+	assert(_animationState < ANIMATIONSTATE_SIZE);
+	assert(m_pAnimationListSize[_animationState] > 0);
+
+	m_animationState = _animationState;
+	m_animationIndex = 0;
 }

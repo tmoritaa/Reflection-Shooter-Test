@@ -15,16 +15,20 @@ class Object
 protected:
 	int m_velX, m_velY;
 	Shape m_shape;
-	SpriteID m_spriteID;
+	SpriteID** m_pAnimationList;
+	int* m_pAnimationListSize;
+	int m_animationIndex;
+	AnimationState m_animationState;
 
 public:
 // add interfaces later		
-	Object(Circle* _pC, SpriteID _spriteID);
-	Object(Rect* _pR, SpriteID _spriteID);
+	Object(Circle* _pC, SpriteID** _pAnimationList, int* _pAnimationListSize);
+	Object(Rect* _pR, SpriteID** _pAnimationList, int* _pAnimationListSize);
+	
 	~Object();
 	void SetVelX(int _velX);
 	void SetVelY(int _velY);
-	void SetSpriteID(SpriteID _spriteID);
+	void SetAnimationState(AnimationState _animationState);
 	int GetVelX();
 	int GetVelY();
 	int GetX();

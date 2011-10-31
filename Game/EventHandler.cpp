@@ -14,7 +14,7 @@ void EventHandler::handleInput(SDL_Event& event)
 	Object* main = m_pObjectHandler->GetMain();
 	int velX = main->GetVelX();
 	int velY = main->GetVelY();
-	SpriteID spriteID = SPRITEID_SIZE;
+	AnimationState animationState = ANIMATIONSTATE_SIZE;
 
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
@@ -33,14 +33,14 @@ void EventHandler::handleInput(SDL_Event& event)
 			case SDLK_LEFT: 
 			{
 				velX -= GENERAL_VELOCITY;
-				spriteID = SPRITEID_MAINLEFT; 
+				animationState = ANIMATIONSTATE_LEFT; 
 				printf("KEYDOWN left\n");
 			} break;
 			
 			case SDLK_RIGHT: 
 			{
 				velX += GENERAL_VELOCITY;
-				spriteID = SPRITEID_MAINRIGHT; 
+				animationState = ANIMATIONSTATE_RIGHT; 
 				printf("KEYDOWN right\n"); 
 			} break;
 		}
@@ -62,14 +62,14 @@ void EventHandler::handleInput(SDL_Event& event)
 			case SDLK_LEFT: 
 			{
 				velX += GENERAL_VELOCITY;
-				spriteID = SPRITEID_MAINIDLE;
+				animationState = ANIMATIONSTATE_IDLE; 
 				printf("KEYUP left\n"); 
 			} break;
 			
 			case SDLK_RIGHT: 
 			{
 				velX -= GENERAL_VELOCITY;
-				spriteID = SPRITEID_MAINIDLE;
+				animationState = ANIMATIONSTATE_IDLE; 
 				printf("KEYUP right\n"); 
 			} break;
 		}
@@ -78,9 +78,9 @@ void EventHandler::handleInput(SDL_Event& event)
 	main->SetVelX(velX);
 	main->SetVelY(velY);
 
-	if (spriteID != SPRITEID_SIZE)
+	if (animationState != ANIMATIONSTATE_SIZE)
 	{
-		main->SetSpriteID(spriteID);
+		main->SetAnimationState(animationState);
 	}
 }
 
