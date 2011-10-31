@@ -3,14 +3,14 @@
 
 struct Circle
 {
-	int x, y;
-	int r;
+	float x, y;
+	float r;
 };
 
 struct Rect
 {
-	int x, y;
-	int w, h;
+	float x, y;
+	float w, h;
 };
 
 struct Shape

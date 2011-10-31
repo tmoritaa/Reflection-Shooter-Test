@@ -13,7 +13,7 @@
 class Object
 {	
 protected:
-	int m_velX, m_velY;
+	float m_velX, m_velY;
 	Shape m_shape;
 	SpriteID** m_pAnimationList;
 	int* m_pAnimationListSize;
@@ -26,13 +26,13 @@ public:
 	Object(Rect* _pR, SpriteID** _pAnimationList, int* _pAnimationListSize);
 	
 	~Object();
-	void SetVelX(int _velX);
-	void SetVelY(int _velY);
+	void SetVelX(float _velX);
+	void SetVelY(float _velY);
 	void SetAnimationState(AnimationState _animationState);
-	int GetVelX();
-	int GetVelY();
-	int GetX();
-	int GetY();
+	float GetVelX();
+	float GetVelY();
+	float GetX();
+	float GetY();
 	SpriteID GetSpriteID();
 	virtual void Move();
 };

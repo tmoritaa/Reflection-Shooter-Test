@@ -15,7 +15,7 @@ const unsigned int SCREEN_HEIGHT = 480;
 const unsigned int SCREEN_BPP = 32;
 const unsigned int FRAMERATE = 20;
 
-const int GENERAL_VELOCITY = 1;
+const float GENERAL_VELOCITY = 0.75;
 
 enum
 {

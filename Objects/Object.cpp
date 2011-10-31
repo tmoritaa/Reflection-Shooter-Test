@@ -48,27 +48,27 @@ Object::~Object()
 	free(m_pAnimationListSize);
 }
 
-void Object::SetVelX(int _velX)
+void Object::SetVelX(float _velX)
 {
 	m_velX = _velX;
 }
 
-void Object::SetVelY(int _velY)
+void Object::SetVelY(float _velY)
 {
 	m_velY = _velY;
 }
 
-int Object::GetVelX()
+float Object::GetVelX()
 {
 	return m_velX;
 }
 
-int Object::GetVelY()
+float Object::GetVelY()
 {
 	return m_velY;
 }
 
-int Object::GetX()
+float Object::GetX()
 {
 	if (m_shape.c != NULL)
 	{
@@ -80,7 +80,7 @@ int Object::GetX()
 	}
 }
 
-int Object::GetY()
+float Object::GetY()
 {
 	if (m_shape.c != NULL)
 	{
