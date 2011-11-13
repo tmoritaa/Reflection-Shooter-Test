@@ -4,11 +4,11 @@
 
 using namespace std;
 
-bool isNum(char ch);
-int convertToNum(char ch);
-string convertToStateName(const string oriName, const ObjectState state);
+static bool isNum(char ch);
+static int convertToNum(char ch);
+static string convertToStateName(const string oriName, const ObjectState state);
 
-SPVector FileParser::ParseInipFile(string filePath)
+SPVector FileParser::ParsePiniFile(string filePath)
 {
 	fstream spritePaths(filePath.c_str());
 
@@ -69,7 +69,7 @@ SPVector FileParser::ParseInipFile(string filePath)
 				{
 					tempSP.path = line;
 					tempSP.name = convertToStateName(name, objState);
-					if (tempSP.aniLength > 1)
+					if (tempSP.aniLength >= 1)
 					{
 						char num = index + '0';
 						tempSP.name += num;

@@ -1,59 +1,69 @@
 #include "ObjectHandler.h"
-#include "../Definitions/Definitions.h"
 #include <stdlib.h>
+#include <cassert>
 
-ObjectHandler::ObjectHandler()
+using namespace std;
+
+ObjectHandler::~ObjectHandler()
+{
+	delete m_main;
+}
+
+Object* ObjectHandler::GetMain()
+{
+	return m_main;
+}
+
+void ObjectHandler::SetSPVector(SPVector _spVector)
+{
+	m_spVector = _spVector;
+}
+
+void ObjectHandler::Init()
+{
+	assert(m_spVector.size() != 0);
+
+	for (int i = 0; i < m_spVector.size(); i++)
+	{
+		struct SpritePath sp = m_spVector[i];
+		m_spriteLibraryKeys[sp.name] = i;
+	}
+
+	initMain();
+}
+
+void ObjectHandler::initMain()
 {
 	Circle* c = new Circle;
 	c->x = SCREEN_WIDTH/2;
 	c->y = SCREEN_HEIGHT/2;
 	c->r = 10;
 
-	SpriteID** mainAnimationList;
-	mainAnimationList = (SpriteID**) malloc(sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
-	
-	// for now enter number of AnimationFrames manually.
-	// Later parse file (maybe)
-	SpriteID* mainAnimationIdle = (SpriteID*) malloc(sizeof(SpriteID)*2);
-	
-	SpriteID* mainAnimationLeft = (SpriteID*) malloc(sizeof(SpriteID)*1);
-
-	SpriteID* mainAnimationRight = (SpriteID*) malloc(sizeof(SpriteID)*1);
-
-	for (int i = 0; i < 2; i++)
-	{
-		mainAnimationIdle[i] = (SPRITEID_MAINIDLE1+i);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		mainAnimationLeft[i] = (SPRITEID_MAINLEFT1+i);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		mainAnimationRight[i] = (SPRITEID_MAINRIGHT1+i);
-	}
-
-	mainAnimationList[ANIMATIONSTATE_IDLE] = mainAnimationIdle;
-	mainAnimationList[ANIMATIONSTATE_LEFT] = mainAnimationLeft;
-	mainAnimationList[ANIMATIONSTATE_RIGHT] = mainAnimationRight;
-	
 	int* mainAnimationSize = (int*) malloc(ANIMATIONSTATE_SIZE*sizeof(AnimationState));
+	SpriteID** mainAnimationList = (SpriteID**) malloc(sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
 
-	for (int i = 0; i < ANIMATIONSTATE_SIZE; i++)
+	string spriteNames[] = {"mainidle1", "mainleft1", "mainright1"};
+	int animationTotal = sizeof(spriteNames)/sizeof(spriteNames[0]);
+
+	memset(mainAnimationSize, 0, ANIMATIONSTATE_SIZE*sizeof(AnimationState));
+	memset(mainAnimationList, 0, sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
+
+	for (int i = 0; i < animationTotal; i++)
 	{
-		mainAnimationSize[i] = 0;
-	}
+		// get number of frames per animation state type
+		struct SpritePath sp = m_spVector[m_spriteLibraryKeys[spriteNames[i]]];
+		mainAnimationSize[i] = sp.aniLength;
 
-	mainAnimationSize[ANIMATIONSTATE_IDLE] = 2;
-	mainAnimationSize[ANIMATIONSTATE_LEFT] = 1;
-	mainAnimationSize[ANIMATIONSTATE_RIGHT] = 1;
+		SpriteID* mainAnimationTemp = (SpriteID*) malloc(sizeof(SpriteID)*mainAnimationSize[i]);
+		memset(mainAnimationTemp, 0, sizeof(SpriteID)*mainAnimationSize[i]);
+
+		for (int j = 0; j < mainAnimationSize[i]; j++)
+		{
+			mainAnimationTemp[j] = m_spriteLibraryKeys[spriteNames[i]] + j;
+		}
+
+		mainAnimationList[i] = mainAnimationTemp;
+	}
 
 	m_main = new Object(c, mainAnimationList, mainAnimationSize);
-}
-
-Object* ObjectHandler::GetMain()
-{
-	return m_main;
 }

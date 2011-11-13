@@ -1,8 +1,7 @@
 #ifndef _FILEPARSER_H_
 #define _FILEPARSER_H_
 
-#include <string>
-#include <vector>
+#include "../Definitions/Definitions.h"
 
 enum ParseState 
 {
@@ -24,22 +23,12 @@ enum ObjectState
 	OBJSTATE_OTHER3,
 };
 
-struct SpritePath
-{
-	int objID;
-	int aniLength;
-	std::string name;	
-	std::string path;
-};
-
-typedef std::vector<SpritePath> SPVector;
-
 class FileParser
 {
 private:
 
 public:
-	 SPVector ParseInipFile(std::string _filePath);
+	 SPVector ParsePiniFile(std::string _filePath);
 };
 
 #endif

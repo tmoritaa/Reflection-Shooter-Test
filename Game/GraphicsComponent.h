@@ -5,15 +5,20 @@
 #include "../Definitions/Definitions.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include <vector>
+
+typedef std::vector<SDL_Surface*> SurfaceVector;
 
 class GraphicsComponent
 {
 private:
 	ObjectHandler* m_pObjectHandler;
 	SDL_Surface* m_screen;
-	SDL_Surface* m_spriteLibrary[SPRITEID_SIZE];
+	SurfaceVector m_spriteLibrary;
+	//SDL_Surface* m_spriteLibrary[SPRITEID_SIZE];
+
 	bool loadFiles();
-	bool loadImage(const char* path, int index);
+	bool loadImage(const struct SpritePath sp, int index);
 	void drawObject(Object* _object);
 
 public:

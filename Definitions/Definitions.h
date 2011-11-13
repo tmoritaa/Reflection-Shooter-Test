@@ -1,6 +1,9 @@
 #ifndef _DEFINITIONS_H_
 #define _DEFINITIONS_H_
 
+#include <string>
+#include <vector>
+
 // TODO
 // maybe separate definitions based on relationship
 const bool SUCCESS = false;
@@ -39,5 +42,14 @@ enum
 	ANIMATIONSTATE_SIZE,
 };
 
+struct SpritePath
+{
+	int objID;
+	int aniLength;
+	std::string name;	
+	std::string path;
+};
+
+typedef std::vector<SpritePath> SPVector;
 
 #endif

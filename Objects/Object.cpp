@@ -41,7 +41,10 @@ Object::~Object()
 
 	for (int i = 0; i < ANIMATIONSTATE_SIZE; i++)
 	{
-		free(m_pAnimationList[i]);
+		if (m_pAnimationList[i] != NULL)
+		{
+			free(m_pAnimationList[i]);
+		}
 	}
 
 	free(m_pAnimationList);

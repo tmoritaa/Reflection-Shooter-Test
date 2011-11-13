@@ -1,12 +1,10 @@
 // TODO:
 // create recursive makefile and make #include to "Definitions.h"
-// add pointer to GameLogic
-#include "../Definitions/Definitions.h"
 #include "GraphicsComponent.h"
 #include <fstream>
 #include <cstdio>
-#include <cassert>
 #include <string>
+#include <cassert>
 
 using namespace std;
 
@@ -15,10 +13,6 @@ GraphicsComponent::GraphicsComponent(ObjectHandler* _pObjectHandler)
 	m_pObjectHandler = _pObjectHandler;
 
 	m_screen = NULL;
-	for (int i = 0; i < SPRITEID_SIZE; i++)
-	{
-		m_spriteLibrary[i] = NULL;
-	}
 }
 
 GraphicsComponent::~GraphicsComponent()
@@ -26,7 +20,7 @@ GraphicsComponent::~GraphicsComponent()
 	SDL_FreeSurface(m_screen);
 	m_screen = NULL;
 
-	for (int i = 0; i < SPRITEID_SIZE; i++)
+	for (int i = 0; i < m_spriteLibrary.size(); i++)
 	{
 		if (m_spriteLibrary[i] != NULL) 
 		{
@@ -50,46 +44,45 @@ bool GraphicsComponent::Init()
 		return FAILURE;
 	}
 
+	m_pObjectHandler->Init();
+
 	return SUCCESS;
 }
 
 bool GraphicsComponent::loadFiles()
 {
-	fstream spritePaths("Sprites/SpritePaths.ini");
-	string line;
-	int i = 0;
+	SPVector spVector;
+	FileParser fileParser;
 	bool bSuccess = SUCCESS;
 
-	assert(spritePaths.is_open());
+	spVector = fileParser.ParsePiniFile("Sprites/SpritePaths.pini");
+	struct SpritePath spritePath;
 
-	while(spritePaths.good())
+	for (int i = 0; i < spVector.size(); i++)
 	{
-		getline(spritePaths, line);
+		spritePath = spVector[i];
 
-		if (line == "")
-		{
-			continue;
-		}
-
-		if (loadImage(line.c_str(), i) == FAILURE)
+		if (loadImage(spritePath, i) == FAILURE)
 		{
 			printf("Image Loading failed\n");
 			bSuccess = FAILURE;
 			break;
 		}
-
-		i++;
 	}
+
+	m_pObjectHandler->SetSPVector(spVector);
 
 	return bSuccess;
 }
 
-bool GraphicsComponent::loadImage(const char* path, int index)
+bool GraphicsComponent::loadImage(const struct SpritePath sp, int index)
 {
 	SDL_Surface* loadedImage = NULL;
 	SDL_Surface* optimizedImage = NULL;
 
-	loadedImage = IMG_Load(path);
+	string path = sp.path;
+
+	loadedImage = IMG_Load(path.c_str());
 
 	if (loadedImage == NULL)
 	{
@@ -106,7 +99,7 @@ bool GraphicsComponent::loadImage(const char* path, int index)
 
 	SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB(optimizedImage->format, 0x0, 0xff, 0xff));
 
-	m_spriteLibrary[index] = optimizedImage;
+	m_spriteLibrary.push_back(optimizedImage);
 
 	return SUCCESS;
 }
