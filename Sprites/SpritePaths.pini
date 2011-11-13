@@ -1,0 +1,24 @@
+# Restrictions:
+# Number of Sprite AnimationStates are currently predetermined. (Idle, left, right, up, down, other1, other2, other3)
+
+# name of sprite
+main
+# main idle
+2
+Sprites/MainIdle1.bmp
+Sprites/MainIdle2.bmp
+# main left
+1
+Sprites/MainLeft.bmp
+# main right
+1
+Sprites/MainRight.bmp
+#end object animation escape character
+$
+# enemy1
+enemy1
+#enemy1 idle
+2
+Sprites/Enemy1Idle1.bmp
+Sprites/Enemy1Idle2.bmp
+$
