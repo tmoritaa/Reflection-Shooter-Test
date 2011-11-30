@@ -104,10 +104,7 @@ bool EventHandler::handleInput(SDL_Event& event)
 	main->SetVelX(velX);
 	main->SetVelY(velY);
 
-	if (animationState != ANIMATIONSTATE_SIZE)
-	{
-		main->SetAnimationState(animationState);
-	}
+	main->SetAnimationState(animationState);
 
 	return quit;
 }

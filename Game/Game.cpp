@@ -9,7 +9,6 @@ Game::Game()
 	m_pObjectHandler = new ObjectHandler();
 	m_pLogic = new Logic(m_pObjectHandler);
 	m_pSDLWrapper = new SDLWrapper(m_pObjectHandler);
-	
 }
 
 Game::~Game()

@@ -10,7 +10,7 @@ int main (int argc, char* argv[])
 
 	SPVector spVector;
 
-	spVector = fileParser.ParseInipFile("Sprites/SpritePaths.pini");
+	spVector = fileParser.ParsePiniFile("../Sprites/SpritePaths.pini");
 
 	for (int i = 0; i < spVector.size(); i++)
 	{

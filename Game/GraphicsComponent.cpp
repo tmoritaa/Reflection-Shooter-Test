@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <string>
 #include <cassert>
+#include <list>
 
 using namespace std;
 
@@ -106,13 +107,18 @@ bool GraphicsComponent::loadImage(const struct SpritePath sp, int index)
 
 bool GraphicsComponent::Draw()
 {
+	list<Object*>* objectList = m_pObjectHandler->GetObjectList();
+
 	// fill background white for now
 	SDL_FillRect(m_screen, &m_screen->clip_rect, SDL_MapRGB(m_screen->format, 0xff, 0xff, 0xff));
 
 	// TODO
 	// Go through ObjectList and draw each object with for loop
 	// for now just main
-	drawObject(m_pObjectHandler->GetMain());
+	for (list<Object*>::iterator i = objectList->begin(); i != objectList->end(); i++)
+	{
+		drawObject(*i);
+	}
 
 	if (SDL_Flip(m_screen) == -1)
 	{

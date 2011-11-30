@@ -6,12 +6,21 @@ using namespace std;
 
 ObjectHandler::~ObjectHandler()
 {
-	delete m_main;
+	for (list<Object*>::iterator i = m_objectList.begin(); i != m_objectList.end(); i++)
+	{
+		delete (*i);
+		*i = NULL;
+	}
 }
 
 Object* ObjectHandler::GetMain()
 {
 	return m_main;
+}
+
+list<Object*>* ObjectHandler::GetObjectList()
+{
+	return &m_objectList;
 }
 
 void ObjectHandler::SetSPVector(SPVector _spVector)
@@ -30,13 +39,51 @@ void ObjectHandler::Init()
 	}
 
 	initMain();
+	initEnemyOne();
+}
+
+void ObjectHandler::initEnemyOne()
+{
+	Circle* c = new Circle;
+	c->x = SCREEN_WIDTH/2;
+	c->y = SCREEN_HEIGHT/2;
+	c->r = 10;
+
+	int* mainAnimationSize = (int*) malloc(ANIMATIONSTATE_SIZE*sizeof(AnimationState));
+	SpriteID** mainAnimationList = (SpriteID**) malloc(sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
+
+	string spriteNames[] = {"enemy1idle1"};
+	int animationTotal = sizeof(spriteNames)/sizeof(spriteNames[0]);
+
+	memset(mainAnimationSize, 0, ANIMATIONSTATE_SIZE*sizeof(AnimationState));
+	memset(mainAnimationList, 0, sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
+
+	for (int i = 0; i < animationTotal; i++)
+	{
+		// get number of frames per animation state type
+		struct SpritePath sp = m_spVector[m_spriteLibraryKeys[spriteNames[i]]];
+		mainAnimationSize[i] = sp.aniLength;
+
+		SpriteID* mainAnimationTemp = (SpriteID*) malloc(sizeof(SpriteID)*mainAnimationSize[i]);
+		memset(mainAnimationTemp, 0, sizeof(SpriteID)*mainAnimationSize[i]);
+
+		for (int j = 0; j < mainAnimationSize[i]; j++)
+		{
+			mainAnimationTemp[j] = m_spriteLibraryKeys[spriteNames[i]] + j;
+		}
+
+		mainAnimationList[i] = mainAnimationTemp;
+	}
+
+	Object* enemyOne = new Object(c, mainAnimationList, mainAnimationSize);
+	m_objectList.push_back(enemyOne);
 }
 
 void ObjectHandler::initMain()
 {
 	Circle* c = new Circle;
-	c->x = SCREEN_WIDTH/2;
-	c->y = SCREEN_HEIGHT/2;
+	c->x = SCREEN_WIDTH/6;
+	c->y = SCREEN_HEIGHT/6;
 	c->r = 10;
 
 	int* mainAnimationSize = (int*) malloc(ANIMATIONSTATE_SIZE*sizeof(AnimationState));
@@ -66,4 +113,5 @@ void ObjectHandler::initMain()
 	}
 
 	m_main = new Object(c, mainAnimationList, mainAnimationSize);
+	m_objectList.push_back(m_main);
 }
