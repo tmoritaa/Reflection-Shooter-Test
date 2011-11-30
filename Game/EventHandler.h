@@ -14,7 +14,7 @@ class EventHandler
 {
 private:
 	ObjectHandler* m_pObjectHandler;
-	void handleInput(SDL_Event& event);
+	bool handleInput(SDL_Event& event);
 	Timer timer;
 
 public:

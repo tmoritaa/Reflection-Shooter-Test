@@ -9,12 +9,13 @@ EventHandler::EventHandler(ObjectHandler* _pObjectHandler)
 	m_pObjectHandler = _pObjectHandler;
 }
 
-void EventHandler::handleInput(SDL_Event& event)
+bool EventHandler::handleInput(SDL_Event& event)
 {
 	Object* main = m_pObjectHandler->GetMain();
 	float velX = main->GetVelX();
 	float velY = main->GetVelY();
 	AnimationState animationState;
+	bool quit = false;
 
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
@@ -40,6 +41,17 @@ void EventHandler::handleInput(SDL_Event& event)
 			{
 				velX += GENERAL_VELOCITY;
 				printf("KEYDOWN right\n"); 
+			} break;
+
+			case SDLK_ESCAPE:
+			{
+				quit = true;
+				return quit;
+			} break;
+
+			default:
+			{
+				return quit;
 			} break;
 		}
 	} 
@@ -68,6 +80,11 @@ void EventHandler::handleInput(SDL_Event& event)
 				velX -= GENERAL_VELOCITY;
 				printf("KEYUP right\n"); 
 			} break;
+
+			default:
+			{
+				return quit;
+			}
 		}
 	}
 
@@ -91,6 +108,8 @@ void EventHandler::handleInput(SDL_Event& event)
 	{
 		main->SetAnimationState(animationState);
 	}
+
+	return quit;
 }
 
 bool EventHandler::HandleEvent()
@@ -99,13 +118,9 @@ bool EventHandler::HandleEvent()
 
 	while (SDL_PollEvent(&event))
 	{
-		if (event.type == SDL_QUIT)
+		if (event.type == SDL_QUIT || handleInput(event))
 		{
 			return FAILURE;
-		}
-		else 
-		{
-			handleInput(event);
 		}
 	}
 
