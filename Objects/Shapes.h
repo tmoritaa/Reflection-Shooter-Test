@@ -13,10 +13,4 @@ struct Rect
 	float w, h;
 };
 
-struct Shape
-{
-	Circle* c;
-	Rect* r;
-};
-
 #endif

@@ -11,7 +11,7 @@
 class ObjectHandler
 {
 private:
-	Object* m_main;
+	CircleObject* m_main;
 	SPVector m_spVector;
 	std::map<std::string, SpriteID> m_spriteLibraryKeys;
 	std::list<Object*> m_objectList;
@@ -21,7 +21,7 @@ private:
 
 public:
 	~ObjectHandler();
-	Object* GetMain();
+	CircleObject* GetMain();
 	std::list<Object*>* GetObjectList();
 	void SetSPVector(SPVector _spVector);
 	void Init();

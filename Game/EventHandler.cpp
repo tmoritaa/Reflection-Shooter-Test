@@ -11,7 +11,7 @@ EventHandler::EventHandler(ObjectHandler* _pObjectHandler)
 
 bool EventHandler::handleInput(SDL_Event& event)
 {
-	Object* main = m_pObjectHandler->GetMain();
+	Object* main = (Object*)m_pObjectHandler->GetMain();
 	float velX = main->GetVelX();
 	float velY = main->GetVelY();
 	AnimationState animationState;

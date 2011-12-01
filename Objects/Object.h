@@ -10,30 +10,34 @@
 #include "../Definitions/Definitions.h"
 #include "Shapes.h"
 
+class CircleObject;
+class RectObject;
+
 class Object
 {	
 protected:
 	float m_velX, m_velY;
-	Shape m_shape;
 	SpriteID** m_pAnimationList;
 	int* m_pAnimationListSize;
 	int m_animationIndex;
 	AnimationState m_animationState;
+	
+	float distance(float x1, float y1, float x2, float y2);
+	virtual bool checkCollision(CircleObject& obj) = 0;
+	virtual bool checkCollision(RectObject& obj) = 0;
 
 public:
-// add interfaces later		
-	Object(Circle* _pC, SpriteID** _pAnimationList, int* _pAnimationListSize);
-	Object(Rect* _pR, SpriteID** _pAnimationList, int* _pAnimationListSize);
-	
+	Object(SpriteID** _pAnimationList, int* _pAnimationListSize);
 	~Object();
 	void SetVelX(float _velX);
 	void SetVelY(float _velY);
 	void SetAnimationState(AnimationState _animationState);
 	float GetVelX();
 	float GetVelY();
-	float GetX();
-	float GetY();
 	SpriteID GetSpriteID();
+
+	virtual float GetX() = 0;
+	virtual float GetY() = 0;
 	virtual void Move();
 };
 

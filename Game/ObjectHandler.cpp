@@ -1,4 +1,6 @@
 #include "ObjectHandler.h"
+#include "../Objects/CircleObject.h"
+#include "../Objects/RectObject.h"
 #include <stdlib.h>
 #include <cassert>
 
@@ -13,7 +15,7 @@ ObjectHandler::~ObjectHandler()
 	}
 }
 
-Object* ObjectHandler::GetMain()
+CircleObject* ObjectHandler::GetMain()
 {
 	return m_main;
 }
@@ -44,10 +46,10 @@ void ObjectHandler::Init()
 
 void ObjectHandler::initEnemyOne()
 {
-	Circle* c = new Circle;
-	c->x = SCREEN_WIDTH/2;
-	c->y = SCREEN_HEIGHT/2;
-	c->r = 10;
+	Circle c;
+	c.x = SCREEN_WIDTH/2;
+	c.y = SCREEN_HEIGHT/2;
+	c.r = 10;
 
 	int* mainAnimationSize = (int*) malloc(ANIMATIONSTATE_SIZE*sizeof(AnimationState));
 	SpriteID** mainAnimationList = (SpriteID**) malloc(sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
@@ -75,16 +77,16 @@ void ObjectHandler::initEnemyOne()
 		mainAnimationList[i] = mainAnimationTemp;
 	}
 
-	Object* enemyOne = new Object(c, mainAnimationList, mainAnimationSize);
-	m_objectList.push_back(enemyOne);
+	CircleObject* enemyOne = new CircleObject(c, mainAnimationList, mainAnimationSize);
+	m_objectList.push_back((Object*)enemyOne);
 }
 
 void ObjectHandler::initMain()
 {
-	Circle* c = new Circle;
-	c->x = SCREEN_WIDTH/6;
-	c->y = SCREEN_HEIGHT/6;
-	c->r = 10;
+	Circle c;
+	c.x = SCREEN_WIDTH/6;
+	c.y = SCREEN_HEIGHT/6;
+	c.r = 10;
 
 	int* mainAnimationSize = (int*) malloc(ANIMATIONSTATE_SIZE*sizeof(AnimationState));
 	SpriteID** mainAnimationList = (SpriteID**) malloc(sizeof(SpriteID*)*ANIMATIONSTATE_SIZE);
@@ -112,6 +114,6 @@ void ObjectHandler::initMain()
 		mainAnimationList[i] = mainAnimationTemp;
 	}
 
-	m_main = new Object(c, mainAnimationList, mainAnimationSize);
-	m_objectList.push_back(m_main);
+	m_main = new CircleObject(c, mainAnimationList, mainAnimationSize);
+	m_objectList.push_back((Object*)m_main);
 }
