@@ -133,8 +133,8 @@ void GraphicsComponent::drawObject(Object* _object)
 	SpriteID spriteID = _object->GetSpriteID();
 
 	SDL_Rect offset;
-	offset.x = _object->GetX();
-	offset.y = _object->GetY();
+	offset.x = _object->GetCenterX();
+	offset.y = _object->GetCenterY();
 
 	SDL_Surface* src = m_spriteLibrary[spriteID];
 

@@ -12,8 +12,9 @@ protected:
 
 public:
 	CircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize);
-	virtual float GetX();
-	virtual float GetY();
+	Circle GetShape();
+	virtual float GetCenterX();
+	virtual float GetCenterY();
 	virtual void Move();
 };
 

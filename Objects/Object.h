@@ -23,8 +23,6 @@ protected:
 	AnimationState m_animationState;
 	
 	float distance(float x1, float y1, float x2, float y2);
-	virtual bool checkCollision(CircleObject& obj) = 0;
-	virtual bool checkCollision(RectObject& obj) = 0;
 
 public:
 	Object(SpriteID** _pAnimationList, int* _pAnimationListSize);
@@ -36,8 +34,8 @@ public:
 	float GetVelY();
 	SpriteID GetSpriteID();
 
-	virtual float GetX() = 0;
-	virtual float GetY() = 0;
+	virtual float GetCenterX() = 0;
+	virtual float GetCenterY() = 0;
 	virtual void Move();
 };
 

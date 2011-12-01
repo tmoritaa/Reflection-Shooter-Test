@@ -12,8 +12,9 @@ protected:
 
 public:
 	RectObject(Rect _c, SpriteID** _pAnimationList, int* _pAnimationListSize);
-	virtual float GetX();
-	virtual float GetY();
+	Rect GetShape();
+	virtual float GetCenterX();
+	virtual float GetCenterY();
 	virtual void Move();
 };
 
