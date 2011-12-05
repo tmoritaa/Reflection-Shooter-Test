@@ -15,6 +15,7 @@ private:
 	SPVector m_spVector;
 	std::map<std::string, SpriteID> m_spriteLibraryKeys;
 	std::list<Object*> m_objectList;
+	std::list<Object*> m_enemyObjectList;
 
 	void initMain();
 	void initEnemyOne();
@@ -23,6 +24,7 @@ public:
 	~ObjectHandler();
 	CircleObject* GetMain();
 	std::list<Object*>* GetObjectList();
+	std::list<Object*>* GetEnemyObjectList();
 	void SetSPVector(SPVector _spVector);
 	void Init();
 };

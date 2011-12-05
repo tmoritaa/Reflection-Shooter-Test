@@ -14,6 +14,7 @@ private:
 public:
 	Logic(ObjectHandler* _pObjectHandler);
 	void MoveObjects();
+	void DetectCollision();
 };
 
 #endif

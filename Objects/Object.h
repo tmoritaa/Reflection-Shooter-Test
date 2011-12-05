@@ -36,7 +36,10 @@ public:
 
 	virtual float GetCenterX() = 0;
 	virtual float GetCenterY() = 0;
-	virtual void Move();
+	virtual void Move() = 0;
+	virtual bool CheckCollision(CircleObject* obj) = 0;
+	virtual bool CheckCollision(RectObject* obj) = 0;
+	virtual bool CheckCollision(Object* obj) = 0;
 };
 
 #endif

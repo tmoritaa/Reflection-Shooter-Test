@@ -37,7 +37,10 @@ bool Game::IterateOneGameLoop()
 	// calc movements
 	m_pLogic->MoveObjects();
 	// clean up objects off of screen and in active state
+	
 	//collision detection
+	m_pLogic->DetectCollision();
+
 	// perform action
 
 	// below performed by GC

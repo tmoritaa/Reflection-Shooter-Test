@@ -1,5 +1,6 @@
 #include "CircleObject.h"
 #include "RectObject.h"
+#include <cassert>
 
 CircleObject::CircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize) 
 :	Object(_pAnimationList, _pAnimationListSize),
@@ -33,11 +34,11 @@ Circle CircleObject::GetShape()
 	return m_shape;
 }
 
-bool CircleObject::checkCollision(CircleObject& obj)
+bool CircleObject::CheckCollision(CircleObject* obj)
 {
-	Circle c = obj.GetShape();
+	Circle c = obj->GetShape();
 
-	if (distance(m_shape.x, m_shape.y, c.x, c.y) < (m_shape.r + c.y))
+	if (distance(m_shape.x, m_shape.y, c.x, c.y) < (m_shape.r + c.r))
 	{
 		return true;
 	}
@@ -45,9 +46,9 @@ bool CircleObject::checkCollision(CircleObject& obj)
 	return false;
 }
 
-bool CircleObject::checkCollision(RectObject& obj)
+bool CircleObject::CheckCollision(RectObject* obj)
 {
-	Rect r = obj.GetShape();
+	Rect r = obj->GetShape();
 	float x, y;
 	
 	if (m_shape.x < r.x)
@@ -81,5 +82,24 @@ bool CircleObject::checkCollision(RectObject& obj)
 		return true;
 	}
 
+	return false;
+}
+
+bool CircleObject::CheckCollision(Object* obj)
+{
+	CircleObject* pCircleObj = dynamic_cast<CircleObject*>(obj);
+	if (pCircleObj != NULL)
+	{
+		return CheckCollision(pCircleObj);
+	}
+	
+	RectObject* pRectObj = dynamic_cast<RectObject*>(obj);
+	if (pRectObj != NULL)
+	{
+		return CheckCollision(pRectObj);
+	}
+
+	assert(0 && "Collision performed on non-valid object");
+	
 	return false;
 }

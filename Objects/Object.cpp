@@ -2,6 +2,7 @@
 #include <cassert>
 #include <cmath>
 
+
 Object::Object(SpriteID** _pAnimationList, int* _pAnimationListSize)
 :	m_pAnimationList(_pAnimationList),
 	m_pAnimationListSize(_pAnimationListSize),
@@ -64,7 +65,3 @@ float Object::distance(float x1, float y1, float x2, float y2)
 	return sqrt(pow(x2-x1, 2) + pow(y2-y1,2));
 }
 
-void Object::Move()
-{
-	assert(0 && "Base Object class Move function should not be called");
-}

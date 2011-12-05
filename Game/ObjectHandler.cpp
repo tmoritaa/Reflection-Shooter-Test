@@ -25,6 +25,11 @@ list<Object*>* ObjectHandler::GetObjectList()
 	return &m_objectList;
 }
 
+list<Object*>* ObjectHandler::GetEnemyObjectList()
+{
+	return &m_enemyObjectList;
+}
+
 void ObjectHandler::SetSPVector(SPVector _spVector)
 {
 	m_spVector = _spVector;
@@ -79,6 +84,7 @@ void ObjectHandler::initEnemyOne()
 
 	CircleObject* enemyOne = new CircleObject(c, mainAnimationList, mainAnimationSize);
 	m_objectList.push_back((Object*)enemyOne);
+	m_enemyObjectList.push_back((Object*)enemyOne);
 }
 
 void ObjectHandler::initMain()
