@@ -32,13 +32,13 @@ bool SDLWrapper::Init()
 	return SUCCESS;
 }
 
-EventHandler* SDLWrapper::GetEventHandler()
+EventHandler* SDLWrapper::GetEventHandler() const
 {
 	return m_pEventHandler;
 }
 
 
-GraphicsComponent* SDLWrapper::GetGraphicsComponent()
+GraphicsComponent* SDLWrapper::GetGraphicsComponent() const
 {
 	return m_pGraphicsComponent;
 }

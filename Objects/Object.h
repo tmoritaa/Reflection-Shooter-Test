@@ -22,24 +22,24 @@ protected:
 	int m_animationIndex;
 	AnimationState m_animationState;
 	
-	float distance(float x1, float y1, float x2, float y2);
+	float distance(const float x1, const float y1, const float x2, const float y2) const;
 
 public:
 	Object(SpriteID** _pAnimationList, int* _pAnimationListSize);
 	~Object();
-	void SetVelX(float _velX);
-	void SetVelY(float _velY);
+	void SetVelX(const float _velX);
+	void SetVelY(const float _velY);
 	void SetAnimationState(AnimationState _animationState);
-	float GetVelX();
-	float GetVelY();
-	SpriteID GetSpriteID();
+	float GetVelX() const;
+	float GetVelY() const;
+	SpriteID GetSpriteID() const;
 
-	virtual float GetCenterX() = 0;
-	virtual float GetCenterY() = 0;
+	virtual float GetCenterX() const = 0;
+	virtual float GetCenterY() const = 0;
 	virtual void Move() = 0;
-	virtual bool CheckCollision(CircleObject* obj) = 0;
-	virtual bool CheckCollision(RectObject* obj) = 0;
-	virtual bool CheckCollision(Object* obj) = 0;
+	virtual bool CheckCollision(const CircleObject* obj) const = 0;
+	virtual bool CheckCollision(const RectObject* obj) const = 0;
+	virtual bool CheckCollision(Object* obj) const = 0;
 };
 
 #endif

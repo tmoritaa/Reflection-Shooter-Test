@@ -15,7 +15,6 @@ private:
 	ObjectHandler* m_pObjectHandler;
 	SDL_Surface* m_screen;
 	SurfaceVector m_spriteLibrary;
-	//SDL_Surface* m_spriteLibrary[SPRITEID_SIZE];
 
 	bool loadFiles();
 	bool loadImage(const struct SpritePath sp, int index);

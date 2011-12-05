@@ -8,7 +8,7 @@ static bool isNum(char ch);
 static int convertToNum(char ch);
 static string convertToStateName(const string oriName, const ObjectState state);
 
-SPVector FileParser::ParsePiniFile(string filePath)
+SPVector FileParser::ParsePiniFile(const string filePath) const
 {
 	fstream spritePaths(filePath.c_str());
 

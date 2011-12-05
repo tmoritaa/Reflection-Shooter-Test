@@ -129,7 +129,7 @@ void EventHandler::StartTimer()
 	timer.startTick = SDL_GetTicks();
 }
 
-void EventHandler::AdjustFrameRate()
+void EventHandler::AdjustFrameRate() const
 {
 	if (timer.startTick < (1000/FRAMERATE))
 	{

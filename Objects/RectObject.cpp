@@ -7,12 +7,12 @@ RectObject::RectObject(Rect _r, SpriteID** _pAnimationList, int* _pAnimationList
 	m_shape(_r)
 {}
 
-inline float RectObject::GetCenterX()
+float RectObject::GetCenterX() const
 {
 	return (m_shape.x + m_shape.w)/2;
 }
 
-inline float RectObject::GetCenterY()
+float RectObject::GetCenterY() const
 {
 	return (m_shape.y + m_shape.h)/2;
 }
@@ -29,12 +29,12 @@ void RectObject::Move()
 	}
 }
 
-Rect RectObject::GetShape()
+Rect RectObject::GetShape() const
 {
 	return m_shape;
 }
 
-bool RectObject::CheckCollision(CircleObject* obj)
+bool RectObject::CheckCollision(const CircleObject* obj) const
 {
 	Circle c = obj->GetShape();
 	float x, y;
@@ -73,7 +73,7 @@ bool RectObject::CheckCollision(CircleObject* obj)
 	return false;
 }
 
-bool RectObject::CheckCollision(RectObject* obj)
+bool RectObject::CheckCollision(const RectObject* obj) const
 {
 	Rect r = obj->GetShape();
 
@@ -85,7 +85,7 @@ bool RectObject::CheckCollision(RectObject* obj)
 	return true;
 }
 
-bool RectObject::CheckCollision(Object* obj)
+bool RectObject::CheckCollision(Object* obj) const
 {
 	CircleObject* pCircleObj = dynamic_cast<CircleObject*>(obj);
 	if (pCircleObj != NULL)

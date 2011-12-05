@@ -11,10 +11,6 @@ Logic::Logic(ObjectHandler* _pObjectHandler)
 
 void Logic::MoveObjects()
 {
-	// TODO:
-	// get Object list from ObjectHandler
-	// for now just get pointer to main
-	//Object* main = m_pObjectHandler->GetMain();
 	list<Object*>* objectList = m_pObjectHandler->GetObjectList();
 
 	for (list<Object*>::iterator i = objectList->begin(); i != objectList->end(); i++)
@@ -30,6 +26,7 @@ void Logic::DetectCollision()
 // enemy objects and ally bullets
 // For now just implement main object check with enemy objects
 // TODO: add rest of collision
+// TODO: Make collision quadrant based for optimization
 
 	// collision detection for main unit with enemy list
 	list<Object*>* enemyObjectList = m_pObjectHandler->GetEnemyObjectList();	

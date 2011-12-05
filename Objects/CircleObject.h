@@ -10,13 +10,13 @@ protected:
 
 public:
 	CircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize);
-	Circle GetShape();
-	virtual float GetCenterX();
-	virtual float GetCenterY();
+	Circle GetShape() const;
+	virtual float GetCenterX() const;
+	virtual float GetCenterY() const;
 	virtual void Move();
-	virtual bool CheckCollision(CircleObject* obj);
-	virtual bool CheckCollision(RectObject* obj);
-	virtual bool CheckCollision(Object* obj);
+	virtual bool CheckCollision(const CircleObject* obj) const;
+	virtual bool CheckCollision(const RectObject* obj) const;
+	virtual bool CheckCollision(Object* obj) const;
 };
 
 #endif

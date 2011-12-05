@@ -16,8 +16,8 @@ public:
 	SDLWrapper(ObjectHandler* _pObjectHandler);
 	~SDLWrapper();
 	bool Init();
-	EventHandler* GetEventHandler();
-	GraphicsComponent* GetGraphicsComponent();
+	EventHandler* GetEventHandler() const;
+	GraphicsComponent* GetGraphicsComponent() const;
 };
 
 #endif

@@ -21,7 +21,7 @@ public:
 	EventHandler(ObjectHandler* _pObjectHandler);
 	bool HandleEvent();
 	void StartTimer();
-	void AdjustFrameRate();
+	void AdjustFrameRate() const;
 };
 
 #endif

@@ -36,17 +36,17 @@ void Object::SetVelY(float _velY)
 	m_velY = _velY;
 }
 
-float Object::GetVelX()
+float Object::GetVelX() const
 {
 	return m_velX;
 }
 
-float Object::GetVelY()
+float Object::GetVelY() const
 {
 	return m_velY;
 }
 
-SpriteID Object::GetSpriteID()
+SpriteID Object::GetSpriteID() const
 {
 	return m_pAnimationList[m_animationState][m_animationIndex];
 }
@@ -60,7 +60,7 @@ void Object::SetAnimationState(AnimationState _animationState)
 	m_animationIndex = 0;
 }
 
-float Object::distance(float x1, float y1, float x2, float y2)
+float Object::distance(const float x1, const float y1, const float x2, const float y2) const
 {
 	return sqrt(pow(x2-x1, 2) + pow(y2-y1,2));
 }

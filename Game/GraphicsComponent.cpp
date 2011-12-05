@@ -45,6 +45,7 @@ bool GraphicsComponent::Init()
 		return FAILURE;
 	}
 
+	// must be initialized after SPVector in ObjectHandler is initialized
 	m_pObjectHandler->Init();
 
 	return SUCCESS;
@@ -105,7 +106,7 @@ bool GraphicsComponent::loadImage(const struct SpritePath sp, int index)
 	return SUCCESS;
 }
 
-bool GraphicsComponent::Draw()
+bool GraphicsComponent::Draw() 
 {
 	list<Object*>* objectList = m_pObjectHandler->GetObjectList();
 

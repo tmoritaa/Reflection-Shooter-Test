@@ -28,7 +28,7 @@ class FileParser
 private:
 
 public:
-	 SPVector ParsePiniFile(std::string _filePath);
+	 SPVector ParsePiniFile(const std::string  _filePath) const;
 };
 
 #endif
