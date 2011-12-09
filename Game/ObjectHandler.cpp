@@ -1,6 +1,8 @@
 #include "ObjectHandler.h"
 #include "../Objects/CircleObject.h"
+#include "../Objects/EnemyCircleObject.h"
 #include "../Objects/RectObject.h"
+#include "Strategy/MovementStrategy/MovementStrategyHeaders.h"
 #include <stdlib.h>
 #include <cassert>
 
@@ -82,7 +84,9 @@ void ObjectHandler::initEnemyOne()
 		mainAnimationList[i] = mainAnimationTemp;
 	}
 
-	CircleObject* enemyOne = new CircleObject(c, mainAnimationList, mainAnimationSize);
+	LRMovementStrategy* mvStrat = new LRMovementStrategy;
+
+	EnemyCircleObject* enemyOne = new EnemyCircleObject(c, mainAnimationList, mainAnimationSize, mvStrat);
 	m_objectList.push_back((Object*)enemyOne);
 	m_enemyObjectList.push_back((Object*)enemyOne);
 }
