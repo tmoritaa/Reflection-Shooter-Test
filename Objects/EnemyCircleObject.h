@@ -10,6 +10,7 @@ protected:
 	MovementStrategy* m_movementStrategy;
 
 public:
+	EnemyCircleObject();
 	EnemyCircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize, MovementStrategy* _movementStrategy);
 	~EnemyCircleObject();
 	virtual void Move();

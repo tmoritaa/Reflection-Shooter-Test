@@ -1,5 +1,10 @@
 #include "EnemyCircleObject.h"
 
+EnemyCircleObject::EnemyCircleObject()
+:	CircleObject(),
+	m_movementStrategy(NULL)
+{}
+
 EnemyCircleObject::EnemyCircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize, MovementStrategy* _movementStrategy)
 :	CircleObject(_c, _pAnimationList, _pAnimationListSize),
 	m_movementStrategy(_movementStrategy)

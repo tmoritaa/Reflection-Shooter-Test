@@ -1,3 +1,8 @@
+// TODO:
+// Create object creation factory for specific objects (mainObjects, enemyObject, etc.)
+// Replace object init code with factory calls
+
+
 #include "ObjectHandler.h"
 #include "../Objects/CircleObject.h"
 #include "../Objects/EnemyCircleObject.h"

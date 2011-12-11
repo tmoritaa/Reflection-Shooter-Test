@@ -1,7 +1,26 @@
+// TODO:
+// Write copy constructor, = operator, and == operator for all object types
+	
 #include "Object.h"
 #include <cassert>
 #include <cmath>
 
+static int uniqueID = 0;
+
+inline static int GetUniqueObjectID()
+{
+	return uniqueID++;
+}
+
+Object::Object()
+:	m_pAnimationList(NULL),
+	m_pAnimationListSize(NULL),
+	m_velX(0),
+	m_velY(0),
+	m_animationIndex(0),
+	m_animationState(ANIMATIONSTATE_IDLE),
+	m_objectID(GetUniqueObjectID())
+{}
 
 Object::Object(SpriteID** _pAnimationList, int* _pAnimationListSize)
 :	m_pAnimationList(_pAnimationList),
@@ -9,7 +28,8 @@ Object::Object(SpriteID** _pAnimationList, int* _pAnimationListSize)
 	m_velX(0),
 	m_velY(0),
 	m_animationIndex(0),
-	m_animationState(ANIMATIONSTATE_IDLE)
+	m_animationState(ANIMATIONSTATE_IDLE),
+	m_objectID(GetUniqueObjectID())
 {}
 
 Object::~Object()
@@ -51,6 +71,11 @@ SpriteID Object::GetSpriteID() const
 	return m_pAnimationList[m_animationState][m_animationIndex];
 }
 
+int Object::GetObjectID() const
+{
+	return m_objectID;
+}
+
 void Object::SetAnimationState(AnimationState _animationState)
 {
 	assert(_animationState < ANIMATIONSTATE_SIZE);
@@ -64,4 +89,3 @@ float Object::distance(const float x1, const float y1, const float x2, const flo
 {
 	return sqrt(pow(x2-x1, 2) + pow(y2-y1,2));
 }
-

@@ -2,6 +2,11 @@
 #include "RectObject.h"
 #include <cassert>
 
+CircleObject::CircleObject()
+:	Object(),
+	m_shape()
+{}
+
 CircleObject::CircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize) 
 :	Object(_pAnimationList, _pAnimationListSize),
 	m_shape(_c)

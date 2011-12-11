@@ -9,6 +9,7 @@ protected:
 	Rect m_shape;
 
 public:
+	RectObject();
 	RectObject(Rect _c, SpriteID** _pAnimationList, int* _pAnimationListSize);
 	Rect GetShape() const;
 	virtual float GetCenterX() const;

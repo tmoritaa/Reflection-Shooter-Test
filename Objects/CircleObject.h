@@ -9,6 +9,7 @@ protected:
 	Circle m_shape;
 
 public:
+	CircleObject();
 	CircleObject(Circle _c, SpriteID** _pAnimationList, int* _pAnimationListSize);
 	Circle GetShape() const;
 	virtual float GetCenterX() const;
